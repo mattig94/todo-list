@@ -1,16 +1,28 @@
 <template>
   <div>
-    <input v-model="currentTodo" @keydown.enter="addTodo()" placeholder="Add a todo">
-    <ul class="todos">
-      <li v-for="todo in todos" :key="todo.id">
-        <input type="checkbox" v-model="todo.completed">
-        <span @dblclick="editTodo(todo)" v-if="!todo.edit">
-          {{ todo.label }}
-        </span>
-        <input v-else type="text" v-model="todo.label" @keydown.enter="doneEditing(todo)">
-        <button @click="removeTodo(todo)">Delete</button>
-      </li>
-    </ul>
+    <md-card class="md-layout-item md-large-size-50 md-medium-size-75 md-small-size-100">
+      <md-card-header>
+        <div class="md-title">To-Do List</div>
+        <md-field>
+          <md-input v-model="currentTodo" @keydown.enter="addTodo()" placeholder="Add a to-do"></md-input>
+        </md-field>
+      </md-card-header>
+      <md-card-content>
+        <md-list class="todos">
+          <md-list-item v-for="todo in todos" :key="todo.id">
+            <input type="checkbox" v-model="todo.completed">
+            <span v-if="!todo.edit">
+              {{ todo.label }}
+            </span>
+            <input v-else type="text" v-model="todo.label" @keydown.enter="doneEditing(todo)">
+            <div>
+              <md-button class="md-icon-button" @click="editTodo(todo)"><md-icon>edit</md-icon></md-button>
+              <md-button class="md-icon-button md-accent" @click="removeTodo(todo)"><md-icon>delete</md-icon></md-button>
+            </div>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -44,5 +56,13 @@ export default {
 <style>
 li {
   list-style: none;
+}
+
+.md-card {
+  margin: auto;
+}
+
+.md-title{
+  font-family: 'Shadows Into Light', cursive;
 }
 </style>
